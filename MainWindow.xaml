@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chitic_Valentina_lab2"
+        xmlns:CustomCommands="clr-namespace:Chitic_Valentina_lab2.CustomCommands"
         mc:Ignorable="d"
         Title="Virtual Doughnuts Factory" Height="450" Width="800" ResizeMode="NoResize" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Loaded="FrmMain_Loaded">
-    <Grid>
+    <Grid MenuItem.Click="FilledItemsShow_Click" Margin="0,0,0,-16">
         <Label x:Name="lblTitle" Content="Doughnuts - Bake &amp; Sale" FontSize="24" FontWeight="Bold" Margin="237,16,249,365"/>
         <GroupBox x:Name="gbRaised" Header="Raised" FontWeight="Bold" Margin="400,88,86,235">
 
@@ -26,19 +27,19 @@
         <TextBox x:Name="txtChocolateFilled" HorizontalAlignment="Left" Margin="557,140,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
         <Label x:Name="lblVanillaFilled" Content="Vanilla" HorizontalAlignment="Left" Margin="426,165,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtVanillaFilled" HorizontalAlignment="Left" Margin="557,169,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
-        <GroupBox x:Name="gbSale" Header="Current Sale" Margin="42,241,42,10" FontWeight="Bold"/>
+        <GroupBox x:Name="gbSale" Header="Current Sale" Margin="42,241,44,32" FontWeight="Bold"/>
         <Label x:Name="lblQuantity" Content="Quantity" HorizontalAlignment="Left" Margin="74,274,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtQuantity" HorizontalAlignment="Left" Margin="150,278,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="41" KeyUp="txtQuantity_KeyPress"/>
         <Label x:Name="lblType" Content="Type" HorizontalAlignment="Left" Margin="208,274,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbType" HorizontalAlignment="Left" Margin="261,278,0,0" VerticalAlignment="Top" Width="162"/>
+        <ComboBox x:Name="cmbType" HorizontalAlignment="Left" Margin="261,278,0,0" VerticalAlignment="Top" Width="162" SelectionChanged="cmbType_SelectionChanged"/>
         <Label x:Name="lblPrice" Content="Price" HorizontalAlignment="Left" Margin="452,274,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtPrice" HorizontalAlignment="Left" Margin="505,278,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" IsReadOnly="True"/>
-        <ListBox x:Name="lstSale" Margin="76,307,229,51"/>
-        <Label x:Name="lblTotal" Content="Total" HorizontalAlignment="Left" Margin="365,392,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="58"/>
-        <TextBox x:Name="txtTotal" HorizontalAlignment="Left" Margin="429,396,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" IsReadOnly="True"/>
-        <Button x:Name="btnAddToSale" Content="Add To Sale" HorizontalAlignment="Left" Margin="617,310,0,0" VerticalAlignment="Top" Height="23" Width="93"/>
-        <Button x:Name="btnRemoveItem" Content="Remove Item" HorizontalAlignment="Left" Margin="617,345,0,0" VerticalAlignment="Top" Height="22" Width="93"/>
-        <Button x:Name="btnCheckOut" Content="Check Out" HorizontalAlignment="Left" Margin="617,392,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="93" Height="22"/>
+        <ListBox x:Name="lstSale" Margin="76,307,229,63"/>
+        <Label x:Name="lblTotal" Content="Total" HorizontalAlignment="Left" Margin="365,390,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="58"/>
+        <TextBox x:Name="txtTotal" HorizontalAlignment="Left" Margin="429,394,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" IsReadOnly="True"/>
+        <Button x:Name="btnAddToSale" Content="Add To Sale" HorizontalAlignment="Left" Margin="617,307,0,0" VerticalAlignment="Top" Height="23" Width="93" Click="btnAdd_Click"/>
+        <Button x:Name="btnRemoveItem" Content="Remove Item" HorizontalAlignment="Left" Margin="617,345,0,0" VerticalAlignment="Top" Height="22" Width="93" Click="btnRemoveItem_Click"/>
+        <Button x:Name="btnCheckOut" Content="Check Out" HorizontalAlignment="Left" Margin="617,377,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="93" Height="22" Click="btnCheckOut_Click"/>
         <Menu x:Name="mnuMenu" HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="131" Margin="0,26,0,0">
             <MenuItem Header="File">
                 <MenuItem Header="Exit" Click="exitToolStripMenuItem_Click"/>
@@ -49,9 +50,14 @@
                         <MenuItem x:Name="glazedToolStripMenuItem" Header="Glazed" Click="glazedToolStripMenuItem_Click" IsCheckable="True"/>
                         <MenuItem x:Name="sugarToolStripMenuItem" Header="Sugar" Click="sugarToolStripMenuItem_Click" IsCheckable="True"/>
                     </MenuItem>
-                    <MenuItem Header="Filled"/>
+                    <MenuItem Header="Filled" Click="FilledItems_Click">
+                        <MenuItem x:Name="lemonFilledMenuItem" Header="Lemon" IsCheckable="True"/>
+                        <MenuItem x:Name="chocolateFilledMenuItem" Header="Chocolate" IsCheckable="True"/>
+                        <MenuItem x:Name="vanillaFilledMenuItem" Header="Vanilla" IsCheckable="True"/>
+                    </MenuItem>
                 </MenuItem>
-                <MenuItem x:Name="mnuStop" Header="Stop" Click="stopToolStripMenuItem_Click"/>
+                <MenuItem x:Name="mnuStop" Header="Stop" Click="stopToolStripMenuItem_Click" InputGestureText="Ctrl+S" Command="CustomCommands:StopCommand.Launch"/>
+                <MenuItem Header="Inventory" Command="ApplicationCommands.Print"></MenuItem>
             </MenuItem>
         </Menu>
     </Grid>
